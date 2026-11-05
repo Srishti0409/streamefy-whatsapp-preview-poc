@@ -1,0 +1,39 @@
+{
+  "Version": 1,
+  "Hash": "7oZvcTiTcQauTchj0H9WW6KbWT81FICDkRBWMG0aNJE=",
+  "Source": "WhatsAppPreviewPoc",
+  "BasePath": "_content/WhatsAppPreviewPoc",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "WhatsAppPreviewPoc\\wwwroot",
+      "Source": "WhatsAppPreviewPoc",
+      "ContentRoot": "C:\\Users\\user\\Downloads\\Streamefy-WhatsApp-Preview-POC\\WhatsAppPreviewPoc\\wwwroot\\",
+      "BasePath": "_content/WhatsAppPreviewPoc",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\user\\Downloads\\Streamefy-WhatsApp-Preview-POC\\WhatsAppPreviewPoc\\wwwroot\\images\\wedding-thumbnail.jpg",
+      "SourceId": "WhatsAppPreviewPoc",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\user\\Downloads\\Streamefy-WhatsApp-Preview-POC\\WhatsAppPreviewPoc\\wwwroot\\",
+      "BasePath": "_content/WhatsAppPreviewPoc",
+      "RelativePath": "images/wedding-thumbnail.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\wedding-thumbnail.jpg"
+    }
+  ]
+}
