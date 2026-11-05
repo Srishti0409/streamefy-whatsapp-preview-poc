@@ -1,3 +1,4 @@
+
 using System.Text.Encodings.Web;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,9 +12,21 @@ app.MapGet("/view/{token}", (HttpRequest request, string token) =>
     var title = "Ananya & Rahul | Wedding Gallery";
     var description = "Relive the beautiful moments from Ananya and Rahul's wedding.";
 
-    var pageUrl = $"{request.Scheme}://{request.Host}/view/{Uri.EscapeDataString(token)}";
-    var imageUrl = $"{request.Scheme}://{request.Host}/images/wedding-thumbnail.jpg";
+    // Generate public HTTPS URLs when running behind Render's proxy
+    var baseUrl = $"{request.Scheme}://{request.Host}";
 
+    if (string.Equals(
+        request.Headers["X-Forwarded-Proto"].ToString(),
+        "https",
+        StringComparison.OrdinalIgnoreCase))
+    {
+        baseUrl = $"https://{request.Host}";
+    }
+
+    var pageUrl = $"{baseUrl}/view/{Uri.EscapeDataString(token)}";
+    var imageUrl = $"{baseUrl}/images/wedding-thumbnail.jpg";
+
+    // Encode values before inserting them into HTML
     var safeTitle = HtmlEncoder.Default.Encode(title);
     var safeDescription = HtmlEncoder.Default.Encode(description);
     var safePageUrl = HtmlEncoder.Default.Encode(pageUrl);
@@ -38,13 +51,21 @@ app.MapGet("/view/{token}", (HttpRequest request, string token) =>
         <meta property="og:image:height" content="630">
         <meta property="og:url" content="{{safePageUrl}}">
 
+        <!-- Twitter / X preview metadata -->
         <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{safeTitle}}">
+        <meta name="twitter:description" content="{{safeDescription}}">
+        <meta name="twitter:image" content="{{safeImageUrl}}">
     </head>
     <body>
         <h1>{{safeTitle}}</h1>
         <p>{{safeDescription}}</p>
-        <img src="{{safeImageUrl}}" alt="Wedding gallery thumbnail"
-             style="max-width: 600px; width: 100%;">
+
+        <img
+            src="{{safeImageUrl}}"
+            alt="Wedding gallery thumbnail"
+            style="max-width: 600px; width: 100%;"
+        >
     </body>
     </html>
     """;
