@@ -5,6 +5,24 @@ var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
 app.UseStaticFiles();
+app.MapGet("/generate-thumbnail", () =>
+{
+    var inputPath = Path.Combine(
+        app.Environment.WebRootPath,
+        "images",
+        "wedding-thumbnail.jpg"
+    );
+
+    var outputPath = Path.Combine(
+        app.Environment.WebRootPath,
+        "images",
+        "whatsapp-thumbnail.jpg"
+    );
+
+    ThumbnailGenerator.CreateThumbnail(inputPath, outputPath);
+
+    return Results.Ok("Thumbnail generated successfully!");
+});
 
 app.MapGet("/view/{token}", (HttpRequest request, string token) =>
 {
@@ -24,7 +42,7 @@ app.MapGet("/view/{token}", (HttpRequest request, string token) =>
     }
 
     var pageUrl = $"{baseUrl}/view/{Uri.EscapeDataString(token)}";
-    var imageUrl = $"{baseUrl}/images/wedding-thumbnail.jpg";
+    var imageUrl = $"{baseUrl}/images/whatsapp-thumbnail.jpg";
 
     // Encode values before inserting them into HTML
     var safeTitle = HtmlEncoder.Default.Encode(title);
